@@ -16,7 +16,7 @@ public class EmployeeController {
 
     @RequestMapping({"/","index", "index.html"})
     public String viewHomePage(Model model) {
-        model.addAttribute("listEmployees", employeeService.getAllEmployees());
+        model.addAttribute("listOfEmployees", employeeService.getAllEmployees());
         return "index";
     }
 }
