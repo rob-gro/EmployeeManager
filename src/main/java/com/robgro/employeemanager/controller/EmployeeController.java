@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class EmployeeController {
 
-    private final EmployeeServiceImpl employeeService;
+    private EmployeeServiceImpl employeeService;
 
     public EmployeeController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
@@ -19,4 +19,5 @@ public class EmployeeController {
         model.addAttribute("listOfEmployees", employeeService.getAllEmployees());
         return "index";
     }
+
 }
