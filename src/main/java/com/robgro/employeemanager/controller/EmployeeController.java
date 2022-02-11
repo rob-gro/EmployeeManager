@@ -1,8 +1,12 @@
 package com.robgro.employeemanager.controller;
 
+import com.robgro.employeemanager.model.Employee;
 import com.robgro.employeemanager.service.EmployeeServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,6 +22,20 @@ public class EmployeeController {
     public String viewHomePage(Model model) {
         model.addAttribute("listOfEmployees", employeeService.getAllEmployees());
         return "index";
+    }
+
+    @GetMapping("/showNewEmployeeForm")
+    public String addNewEmployer(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute("employee", employee);
+        return "new_employee";
+    }
+
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+        // save employee to db
+        employeeService.saveEmployee(employee);
+        return "redirect:/index";
     }
 
 }
