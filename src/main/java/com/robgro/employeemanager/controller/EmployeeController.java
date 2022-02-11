@@ -15,7 +15,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @RequestMapping({"/","index", "index.html"})
+    @RequestMapping({"/", "index", "index.html"})
     public String viewHomePage(Model model) {
         model.addAttribute("listOfEmployees", employeeService.getAllEmployees());
         return "index";
@@ -32,11 +32,11 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         // save employee to db
         employeeService.saveEmployee(employee);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable (value = "id") Long id, Model model) {
+    public String showFormForUpdate(@PathVariable(value = "id") Long id, Model model) {
 
         // get employee from the service
         Employee employee = employeeService.getEmployeeById(id);
@@ -45,5 +45,13 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
 
         return "update_employee";
+    }
+
+    @GetMapping("/deleteEmployee/{id}")
+    public String deleteEmployee(@PathVariable(value = "id") Long id, Model model) {
+
+        // call delete employee method
+        this.employeeService.deleteEmployeeById(id);
+        return "redirect:/";
     }
 }
