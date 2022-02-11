@@ -4,10 +4,7 @@ import com.robgro.employeemanager.model.Employee;
 import com.robgro.employeemanager.service.EmployeeServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmployeeController {
@@ -38,4 +35,15 @@ public class EmployeeController {
         return "redirect:/index";
     }
 
+    @GetMapping("/showFormForUpdate/{id}")
+    public String showFormForUpdate(@PathVariable (value = "id") Long id, Model model) {
+
+        // get employee from the service
+        Employee employee = employeeService.getEmployeeById(id);
+
+        // set employee as a model attribute to pre-populate the form
+        model.addAttribute("employee", employee);
+
+        return "update_employee";
+    }
 }
